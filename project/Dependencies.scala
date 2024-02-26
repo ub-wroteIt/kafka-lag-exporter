@@ -9,6 +9,7 @@ object Version {
   val Testcontainers = "1.17.5"
   val IAMAuth = "1.1.4"
   val Redis = "3.42"
+  val Jose = "0.9.5"
 }
 
 object Dependencies {
@@ -48,6 +49,7 @@ object Dependencies {
   val AkkaHttp = "com.typesafe.akka" %% "akka-http" % "10.2.10"
   val IAMAuthLib = "software.amazon.msk" % "aws-msk-iam-auth" % Version.IAMAuth
   val ScalaRedis = "net.debasishg" %% "redisclient" % Version.Redis
+  val Jose4J = "org.bitbucket.b_c" % "jose4j" % Version.Jose
 
   /* Test */
   val AkkaTypedTestKit =

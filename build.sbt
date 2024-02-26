@@ -31,6 +31,7 @@ lazy val kafkaLagExporter =
       libraryDependencies ++= Vector(
         LightbendConfig,
         Kafka,
+        Jose4J,
         Akka,
         AkkaTyped,
         AkkaSlf4j,
