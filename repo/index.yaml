@@ -2,14 +2,14 @@ apiVersion: v1
 entries:
   kafka-lag-exporter:
   - apiVersion: v1
-    appVersion: 0.8.4
-    created: "2024-02-26T14:58:08.101742381Z"
+    appVersion: 0.8.5
+    created: "2024-02-27T09:25:40.725405363Z"
     description: Kafka Lag Exporter
-    digest: b05fa8c6272fe37ac6062f2de874b14126775475c7a9fe08c804d7434dad47f1
+    digest: e8d2996f6331ca422f615a41abc28f4198cb8b90b5181c896340c62695a8da33
     maintainers:
     - name: Sean Glover
     name: kafka-lag-exporter
     urls:
-    - https://github.com/ub-wroteIt/kafka-lag-exporter/releases/download/v0.8.4/kafka-lag-exporter-0.8.4.tgz
-    version: 0.8.4
-generated: "2024-02-26T14:58:08.101012895Z"
+    - https://github.com/ub-wroteIt/kafka-lag-exporter/releases/download/v0.8.5/kafka-lag-exporter-0.8.5.tgz
+    version: 0.8.5
+generated: "2024-02-27T09:25:40.724689505Z"
