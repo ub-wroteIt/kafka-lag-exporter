@@ -99,7 +99,7 @@ lazy val kafkaLagExporter =
           Cmd("COPY", "--chown=1001:0", s"$path /$files")
         }
         Seq(
-          Cmd("FROM", "eclipse-temurin:17-jre-alpine"),
+          Cmd("FROM", "amazoncorretto:17.0.10-alpine3.19"),
           Cmd("RUN", "apk add --no-cache bash"),
           Cmd("RUN", "adduser -S -u 1001 kafkalagexporter"),
           Cmd("WORKDIR", "/opt/docker"),
