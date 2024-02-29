@@ -227,6 +227,7 @@ object ConsumerGroupCollector {
             context.self ! newOffsets
             context.self ! MetaData(pollTimeMs)
           case Failure(t) =>
+            context.log.error("Failure during collecting Offsets", t.getCause)
             context.self ! StopWithError(t)
         }(ec)
 
@@ -297,6 +298,10 @@ object ConsumerGroupCollector {
         client.close()
         config.lookupTableConfig.close()
         evictAllClusterMetrics(context.log, config, reporters, state)
+        context.log.info(
+          "A failure occurred while retrieving offsets.  Shutting down. cause: {}",
+          t.getCause.toString
+        )
         throw new Exception(
           "A failure occurred while retrieving offsets.  Shutting down.",
           t
@@ -329,6 +334,9 @@ object ConsumerGroupCollector {
         evictedTps: List[TopicPartition]
     ): Unit = {
       topicPartitionTables.clear(evictedTps)
+      if (snapshot.lastGroupOffsets.isEmpty) {
+        log.info("No group offsets found in the snapshot")
+      }
       for ((tp, point) <- snapshot.latestOffsets) {
         def logAddPoint(msg: String) =
           log.debug(
