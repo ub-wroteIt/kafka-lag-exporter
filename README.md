@@ -1,13 +1,13 @@
 Kafka Lag Exporter [![gh-release-badge][]][gh-release] [![gh-actions-badge][]][gh-actions] [![license-badge][]][license] [![patreon-badge][]][patreon]
 ==================
 
-[gh-release]:          https://github.com/seglo/kafka-lag-exporter/releases
-[gh-release-badge]:    https://img.shields.io/github/v/release/seglo/kafka-lag-exporter?include_prereleases
-[gh-actions]:          https://github.com/seglo/kafka-lag-exporter/actions
-[gh-actions-badge]:    https://github.com/seglo/kafka-lag-exporter/workflows/CI/badge.svg?branch=master
-[license]:             https://github.com/seglo/kafka-lag-exporter/blob/master/LICENSE.txt
+[gh-release]:          https://github.com/ub-wroteIt/kafka-lag-exporter/releases
+[gh-release-badge]:    https://img.shields.io/github/v/release/ub-wroteIt/kafka-lag-exporter?include_prereleases
+[gh-actions]:          https://github.com/ub-wroteIt/kafka-lag-exporter/actions
+[gh-actions-badge]:    https://github.com/ub-wroteIt/kafka-lag-exporter/workflows/CI/badge.svg?branch=master
+[license]:             https://github.com/ub-wroteIt/kafka-lag-exporter/blob/master/LICENSE.txt
 [license-badge]:       https://img.shields.io/badge/License-Apache%202.0-blue.svg
-[patreon]:             https://www.patreon.com/seglo
+[patreon]:             https://www.patreon.com/ub-wroteIt
 [patreon-badge]:       https://img.shields.io/badge/patreon-sponsor-ff69b4.svg
 
 > Monitor Kafka Consumer Group Latency with Kafka Lag Exporter
@@ -18,7 +18,7 @@ Kafka Lag Exporter makes it easy to view the offset lag and calculate an estimat
 It can run anywhere, but it provides features to run easily on [Kubernetes](https://kubernetes.io/) clusters against [Strimzi](https://strimzi.io/) Kafka clusters using the [Prometheus](https://prometheus.io/) and [Grafana](https://grafana.com/) monitoring stack. 
 Kafka Lag Exporter is an [Akka Typed](https://doc.akka.io/docs/akka/current/typed/index.html) application written in [Scala](https://www.scala-lang.org/).
 
-Kafka Lag Exporter is maintained by [Sean Glover](https://seanglover.com) ([@seglo](https://github.com/seglo)) and a community of contributors.
+Kafka Lag Exporter is maintained by [Sean Glover](https://seanglover.com) ([@ub-wroteIt](https://github.com/ub-wroteIt)) and a community of contributors.
 If you like using this project and would like to support its development, please consider a donation using [Patreon][patreon].
 
 _Kafka Lag Exporter interpolates latency based on observed latest committed offset measurements of consumer groups._
@@ -158,10 +158,10 @@ file of the accompanying Helm Chart.
 ### Install with Helm
 
 You can install the chart from the chart repository at the following location
-* [https://seglo.github.io/kafka-lag-exporter/repo/index.yaml](https://seglo.github.io/kafka-lag-exporter/repo/index.yaml)
+* [https://ub-wroteIt.github.io/kafka-lag-exporter/repo/index.yaml](https://ub-wroteIt.github.io/kafka-lag-exporter/repo/index.yaml)
 
 ```
-helm repo add kafka-lag-exporter https://seglo.github.io/kafka-lag-exporter/repo/
+helm repo add kafka-lag-exporter https://ub-wroteIt.github.io/kafka-lag-exporter/repo/
 helm repo update
 
 helm install kafka-lag-exporter/kafka-lag-exporter 
@@ -360,7 +360,7 @@ kafka-lag-exporter {
 
 ### Run as Java App
 
-Download the release **zip** file (`kafka-lag-exporter-{VERSION}.zip`) from the [GitHub release](https://github.com/seglo/kafka-lag-exporter/releases) page.
+Download the release **zip** file (`kafka-lag-exporter-{VERSION}.zip`) from the [GitHub release](https://github.com/ub-wroteIt/kafka-lag-exporter/releases) page.
 Extract its contents and run the `./bin/kafka-lag-exporter` shell script.
 
 Ex)
