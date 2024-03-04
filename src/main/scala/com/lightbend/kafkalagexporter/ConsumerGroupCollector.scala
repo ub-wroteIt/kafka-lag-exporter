@@ -227,7 +227,6 @@ object ConsumerGroupCollector {
             context.self ! newOffsets
             context.self ! MetaData(pollTimeMs)
           case Failure(t) =>
-            context.log.error("Failure during collecting Offsets", t.getCause)
             context.self ! StopWithError(t)
         }(ec)
 
@@ -298,10 +297,6 @@ object ConsumerGroupCollector {
         client.close()
         config.lookupTableConfig.close()
         evictAllClusterMetrics(context.log, config, reporters, state)
-        context.log.info(
-          "A failure occurred while retrieving offsets.  Shutting down. cause: {}",
-          t.getCause.toString
-        )
         throw new Exception(
           "A failure occurred while retrieving offsets.  Shutting down.",
           t
