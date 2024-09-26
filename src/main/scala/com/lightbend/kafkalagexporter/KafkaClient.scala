@@ -5,28 +5,18 @@
 
 package com.lightbend.kafkalagexporter
 
+import akka.event.slf4j.Logger
+
 import java.time.Duration
 import java.util.Properties
 import java.util.concurrent.TimeUnit
 import java.{lang, util}
-
 import com.lightbend.kafkalagexporter.Domain.{GroupOffsets, PartitionOffsets}
-import com.lightbend.kafkalagexporter.KafkaClient.{
-  AdminKafkaClientContract,
-  ConsumerKafkaClientContract,
-  KafkaClientContract
-}
+import com.lightbend.kafkalagexporter.KafkaClient.{AdminKafkaClientContract, ConsumerKafkaClientContract, KafkaClientContract}
 import org.apache.kafka.clients.admin._
-import org.apache.kafka.clients.consumer.{
-  ConsumerConfig,
-  KafkaConsumer,
-  OffsetAndMetadata
-}
+import org.apache.kafka.clients.consumer.{ConsumerConfig, KafkaConsumer, OffsetAndMetadata}
 import org.apache.kafka.common.serialization.ByteArrayDeserializer
-import org.apache.kafka.common.{
-  KafkaFuture,
-  TopicPartition => KafkaTopicPartition
-}
+import org.apache.kafka.common.{KafkaFuture, TopicPartition => KafkaTopicPartition}
 
 import scala.collection.JavaConverters._
 import scala.collection.immutable.Map
@@ -254,6 +244,7 @@ class KafkaClient private[kafkalagexporter] (
 )(implicit ec: ExecutionContext)
     extends KafkaClientContract {
   import KafkaClient._
+  val logger = Logger(getClass.getName)
 
   /** Get a list of consumer groups
     */
@@ -336,8 +327,11 @@ class KafkaClient private[kafkalagexporter] (
       now: Long,
       topicPartitions: Set[Domain.TopicPartition]
   ): Try[PartitionOffsets] = Try {
-    val offsets: util.Map[KafkaTopicPartition, lang.Long] =
+    val offsets: util.Map[KafkaTopicPartition, lang.Long] = {
       consumer.beginningOffsets(topicPartitions.map(_.asKafka).asJava)
+      if (offsets.isEmpty) {
+        throw new RuntimeException("No offsets returned from Kafka. for partitions: " + topicPartitions)
+      }
     topicPartitions
       .map(tp => tp -> LookupTable.Point(offsets.get(tp.asKafka).toLong, now))
       .toMap
@@ -408,9 +402,12 @@ class KafkaClient private[kafkalagexporter] (
     } yield {
       // Offset can be null if it's invalid.  See javadocs:
       // https://kafka.apache.org/25/javadoc/org/apache/kafka/clients/admin/ListConsumerGroupOffsetsResult.html#partitionsToOffsetAndMetadata--
-      if (offsetResult == null)
+      if (offsetResult == null) {
         gtp -> None
-      else
+        logger.info(s"Null Offset received for Group: ${gtp.id}, Topic: ${gtp.tp.topic}, Partition: ${gtp.tp.partition}")
+      } else
+        logger.info(
+          s"Group: ${gtp.id}, Topic: ${gtp.tp.topic}, Partition: ${gtp.tp.partition}, Offset: ${offsetResult.offset()}")
         gtp -> Some(LookupTable.Point(offsetResult.offset(), now))
     }).toMap
 
