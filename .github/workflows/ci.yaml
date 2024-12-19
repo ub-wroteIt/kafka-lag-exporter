@@ -100,7 +100,7 @@ jobs:
         uses: coursier/cache-action@v6
 
       - name: Start minikube
-        uses: medyagh/setup-minikube@master
+        uses: medyagh/setup-minikube@latest
 
       - name: Setup Minikube
         run: |-
