@@ -112,7 +112,7 @@ jobs:
           helm repo add strimzi https://strimzi.io/charts/
           helm install strimzi strimzi/strimzi-kafka-operator
           kubectl apply -f ./examples/k8s/strimzi-kafka-cluster.yaml
-          kubectl wait kafka/strimzi-kafka-cluster --for=condition=Ready --timeout=300s
+          kubectl wait kafka/strimzi-kafka-cluster --for=condition=Ready --timeout=600s
 
           echo Running pods..
           kubectl get po -A
